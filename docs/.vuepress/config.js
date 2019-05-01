@@ -137,7 +137,6 @@ const config = {
 
 if (process.env.hasOwnProperty('ALGOLIA_KEY')) {
   config.themeConfig.algolia = {
-    // apiKey: 'be65dcba5b0ff0b5e91d2e48ced11c85',
     apiKey: process.env.ALGOLIA_KEY,
     indexName: 'vue-select',
   };
