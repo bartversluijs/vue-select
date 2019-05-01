@@ -59,7 +59,7 @@ if (isDeployPreview) {
   );
 }
 
-module.exports = {
+const config = {
   title: 'Vue Select',
   description: meta.description,
   head,
@@ -134,3 +134,14 @@ module.exports = {
     },
   },
 };
+
+if (process.env.hasOwnProperty('ALGOLIA_KEY')) {
+  config.themeConfig.algolia = {
+    // apiKey: 'be65dcba5b0ff0b5e91d2e48ced11c85',
+    apiKey: process.env.ALGOLIA_KEY,
+    indexName: 'vue-select',
+  };
+  console.log(config.themeConfig.algolia);
+}
+
+module.exports = config;
