@@ -180,6 +180,9 @@ const defaultConfig = () => ({
   disabled: false,
   selectOntab: false,
   placeholder: 'Select a Country...',
+  noOptionsText: "No country found",
+  label: "label",
+  searchBy: ["value", "label"]
 });
 
 export default {

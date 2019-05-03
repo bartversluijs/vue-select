@@ -66,7 +66,7 @@
           </slot>
         </li>
         <li v-if="!filteredOptions.length" class="vs__no-options" @mousedown.stop="">
-          <slot name="no-options">Sorry, no matching options.</slot>
+          <slot name="no-options">{{ noOptionsText }}</slot>
         </li>
       </ul>
     </transition>
@@ -92,6 +92,14 @@
        * @type {Object||String||null}
        */
       value: {},
+
+      /**
+       * Test
+       */
+      noOptionsText: {
+        type: String,
+        default: "Sorry, no matching options."
+      },
 
       /**
        * An object with any custom components that you'd like to overwrite
@@ -195,7 +203,7 @@
       /**
        * Tells vue-select what key to use when generating option
        * labels when each `option` is an object.
-       * @type {String}
+       * @type {String||Array}
        */
       label: {
         type: String,
@@ -240,13 +248,19 @@
       getOptionLabel: {
         type: Function,
         default(option) {
+          let searchLabel = (this.searchBy !== null ? this.searchBy : this.label);
+
           if (typeof option === 'object') {
-            if (!option.hasOwnProperty(this.label)) {
-              return console.warn(
-                `[vue-select warn]: Label key "option.${this.label}" does not` +
-                ` exist in options object ${JSON.stringify(option)}.\n` +
-                'http://sagalbot.github.io/vue-select/#ex-labels'
-              )
+            if(Array.isArray(searchLabel)) {
+              return option[this.label];
+            } else {
+              if (!option.hasOwnProperty(searchLabel)) {
+                return console.warn(
+                  `[vue-select warn]: Search by key "option.${searchLabel}" does not` +
+                  ` exist in options object ${JSON.stringify(option)}.\n` +
+                  'http://sagalbot.github.io/vue-select/#ex-labels'
+                )
+              }
             }
             return option[this.label]
           }
@@ -322,6 +336,11 @@
         }
       },
 
+      searchBy: {
+        type: Array | String,
+        default: null
+      },
+
       /**
        * Callback to filter results when search text
        * is provided. Default implementation loops
@@ -338,10 +357,23 @@
         default(options, search) {
           return options.filter((option) => {
             let label = this.getOptionLabel(option)
-            if (typeof label === 'number') {
-              label = label.toString()
+
+            if(typeof label === 'number') { label = label.toString(); }
+
+            let filter = (this.searchBy !== null ? this.searchBy : this.label);
+
+            if(!Array.isArray(filter)) { filter = [filter]; }
+
+            if(Array.isArray(filter)) {
+              return Object.keys(option).some(k => {
+                if(filter.indexOf(k) !== -1) {
+                  if(typeof option[k] === 'string') return (option[k] || "").toLowerCase().includes(search.toLowerCase());
+                }
+              });
+            } else {
+              return this.filterBy(option, label, search)
             }
-            return this.filterBy(option, label, search)
+
           });
         }
       },
