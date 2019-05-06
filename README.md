@@ -1,6 +1,6 @@
 # vue-select ![Current Release](https://img.shields.io/github/release/sagalbot/vue-select.svg?style=flat-square) ![Bundle Size](https://flat.badgen.net/bundlephobia/min/vue-select)  ![Monthly Downloads](https://img.shields.io/npm/dm/vue-select.svg?style=flat-square) ![Code Coverage](https://img.shields.io/coveralls/github/sagalbot/vue-select.svg?style=flat-square) ![Maintainability Score](https://img.shields.io/codeclimate/maintainability/sagalbot/vue-select.svg?style=flat-square) ![MIT License](https://img.shields.io/github/license/sagalbot/vue-select.svg?style=flat-square)
 
-> **This is a fork of [vue-select](https://github.com/sagalbot/vue-select) with support for searching multiple keys in an object and a customizable text when no results are found.** 
+> **This is a fork of [vue-select](https://github.com/sagalbot/vue-select) with support for searching multiple keys in an object and a customizable text when no results are found.**
 
 > **Everything you wish the HTML `<select>` element could do, wrapped up into a lightweight, zero
 dependency, extensible Vue component.**
@@ -26,7 +26,7 @@ Complete documentation and examples available at https://vue-select.org.
 - **[CodePen Template](http://codepen.io/sagalbot/pen/NpwrQO)**
 - **[GitHub Projects](https://github.com/sagalbot/vue-select/projects)**
 
-## Install
+## Install (Standard Repo, without this fork's functionality)
 
 ```bash
 $ npm install vue-select
@@ -49,6 +49,24 @@ You may now use the component in your markup
 
 You can also include vue-select directly in the browser. Check out the
 [documentation for loading from CDN.](https://vue-select.org/guide/install.html#in-the-browser).
+
+## Fork functions
+
+The functions that are available in this fork are explained here.
+
+Change the text when no options are available
+
+```html
+<v-select v-model="selected" :options="['Vue.js','React']" :noOptionsText="'Sorry, geen opties gevonden'"></v-select>
+```
+
+Use multiple keys to search from, with "a darn good search filter function" [credits to Peterbe.com](https://www.peterbe.com/plog/a-darn-good-search-filter-function-in-javascript).
+
+```html
+<v-select v-model="selected" :options="[{name: 'John Doe', address: '123 Main St', city: 'Anytown'}, {name: 'Jane Doe', address: '123 Appleseed', city: 'Cupertino'}, {name: 'Jan Janssen', address: 'Hoofdweg 1', city: 'Amsterdam'}]" :noOptionsText="'Sorry, geen opties gevonden'" label="name" searchBy="['name', 'address', 'city']"></v-select>
+```
+
+> __This fork is used internally and only with the searchBy key. If there are any issues, feel free to create an issue and/or fix the issue. But please, keep me informed!__
 
 ## License
 
