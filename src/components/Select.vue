@@ -365,11 +365,32 @@
             if(!Array.isArray(filter)) { filter = [filter]; }
 
             if(Array.isArray(filter)) {
-              return Object.keys(option).some(k => {
+
+              // Credits to Peterbe (https://www.peterbe.com/plog/a-darn-good-search-filter-function-in-javascript) for this awesome search function, with a little bit of tweaking
+
+              function escapeRegExp(s) { return s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&"); }
+              const words = search.split(/\s+/g).map(s => s.trim()).filter(s => !!s);
+              const hasTrailingSpace = search.endsWith(" ");
+              const searchRegex = new RegExp(
+                words.map((word, i) => {
+                  if(i + 1 === words.length && !hasTrailingSpace) {
+                    return `(?=.*\\b${escapeRegExp(word)})`;
+                  } else {
+                    return `(?=.*\\b${escapeRegExp(word)}\\b)`;
+                  }
+                }).join("") + ".+",
+                "gi"
+              );
+
+              let fullLabel = "";
+              Object.keys(option).some(k => {
                 if(filter.indexOf(k) !== -1) {
-                  if(typeof option[k] === 'string') return (option[k] || "").toLowerCase().includes(search.toLowerCase());
+                  if(typeof option[k] === 'string') fullLabel += (option[k] || "").toLowerCase() + " ";
                 }
-              });
+              })
+
+              return searchRegex.test(fullLabel)
+
             } else {
               return this.filterBy(option, label, search)
             }
