@@ -985,6 +985,7 @@
       stateClasses() {
         return {
           'vs--open': this.dropdownOpen,
+          'vs--focus': this.focusOnInput,
           'vs--single': !this.multiple,
           'vs--searching': this.searching && !this.noDrop,
           'vs--searchable': this.searchable && !this.noDrop,
@@ -1016,8 +1017,11 @@
        * dropdown menu.
        * @return {Boolean} True if open
        */
+      focusOnInput() {
+        return this.noDrop ? false : this.open && !this.mutableLoading
+      },
       dropdownOpen() {
-        return this.noDrop ? false : this.open && !this.mutableLoading && this.search.length >= this.minInputLength
+        return this.focusOnInput && this.search.length >= this.minInputLength
       },
 
       /**
