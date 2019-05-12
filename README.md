@@ -1,6 +1,6 @@
 # vue-select ![Current Release](https://img.shields.io/github/release/sagalbot/vue-select.svg?style=flat-square) ![Bundle Size](https://flat.badgen.net/bundlephobia/min/vue-select)  ![Monthly Downloads](https://img.shields.io/npm/dm/vue-select.svg?style=flat-square) ![Code Coverage](https://img.shields.io/coveralls/github/sagalbot/vue-select.svg?style=flat-square) ![Maintainability Score](https://img.shields.io/codeclimate/maintainability/sagalbot/vue-select.svg?style=flat-square) ![MIT License](https://img.shields.io/github/license/sagalbot/vue-select.svg?style=flat-square)
 
-> **This is a fork of [vue-select](https://github.com/sagalbot/vue-select) with support for searching multiple keys in an object and a customizable text when no results are found.**
+> **This is a fork of [vue-select](https://github.com/sagalbot/vue-select) with support for searching multiple keys in an object, customizable text when no results are found and a minimum input length before the list shows.**
 
 > **Everything you wish the HTML `<select>` element could do, wrapped up into a lightweight, zero
 dependency, extensible Vue component.**
@@ -64,6 +64,12 @@ Use multiple keys to search from, with "a darn good search filter function" [cre
 
 ```html
 <v-select v-model="selected" :options="[{name: 'John Doe', address: '123 Main St', city: 'Anytown'}, {name: 'Jane Doe', address: '123 Appleseed', city: 'Cupertino'}, {name: 'Jan Janssen', address: 'Hoofdweg 1', city: 'Amsterdam'}]" :noOptionsText="'Sorry, geen opties gevonden'" label="name" :searchBy="['name', 'address', 'city']"></v-select>
+```
+
+Set minimum input length
+
+```html
+<v-select v-model="selected" :options="[{name: 'John Doe', address: '123 Main St', city: 'Anytown'}, {name: 'Jane Doe', address: '123 Appleseed', city: 'Cupertino'}, {name: 'Jan Janssen', address: 'Hoofdweg 1', city: 'Amsterdam'}]" :noOptionsText="'Sorry, geen opties gevonden'" label="name" :searchBy="['name', 'address', 'city']" :minInputLength="1"></v-select>
 ```
 
 > __This fork is used internally and only with the searchBy key. If there are any issues, feel free to create an issue and/or fix the issue. But please, keep me informed!__

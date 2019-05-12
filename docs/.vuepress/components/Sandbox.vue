@@ -182,6 +182,7 @@ const defaultConfig = () => ({
   placeholder: 'Select a Country...',
   noOptionsText: "No country found",
   label: "label",
+  minInputLength: 1,
   searchBy: ["value", "label"]
 });
 

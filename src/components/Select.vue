@@ -94,11 +94,19 @@
       value: {},
 
       /**
-       * Test
+       * No options text is the text that shows when no options are available with the search criteria
        */
       noOptionsText: {
         type: String,
         default: "Sorry, no matching options."
+      },
+
+      /**
+       * Minimum input length before list shows, defaults to 0 (Always show list)
+       */
+      minInputLength: {
+        type: Number,
+        default: 0
       },
 
       /**
@@ -1009,7 +1017,7 @@
        * @return {Boolean} True if open
        */
       dropdownOpen() {
-        return this.noDrop ? false : this.open && !this.mutableLoading
+        return this.noDrop ? false : this.open && !this.mutableLoading && this.search.length >= this.minInputLength
       },
 
       /**
