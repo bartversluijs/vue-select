@@ -63,7 +63,7 @@ Change the text when no options are available
 Use multiple keys to search from, with "a darn good search filter function" [credits to Peterbe.com](https://www.peterbe.com/plog/a-darn-good-search-filter-function-in-javascript).
 
 ```html
-<v-select v-model="selected" :options="[{name: 'John Doe', address: '123 Main St', city: 'Anytown'}, {name: 'Jane Doe', address: '123 Appleseed', city: 'Cupertino'}, {name: 'Jan Janssen', address: 'Hoofdweg 1', city: 'Amsterdam'}]" :noOptionsText="'Sorry, geen opties gevonden'" label="name" searchBy="['name', 'address', 'city']"></v-select>
+<v-select v-model="selected" :options="[{name: 'John Doe', address: '123 Main St', city: 'Anytown'}, {name: 'Jane Doe', address: '123 Appleseed', city: 'Cupertino'}, {name: 'Jan Janssen', address: 'Hoofdweg 1', city: 'Amsterdam'}]" :noOptionsText="'Sorry, geen opties gevonden'" label="name" :searchBy="['name', 'address', 'city']"></v-select>
 ```
 
 > __This fork is used internally and only with the searchBy key. If there are any issues, feel free to create an issue and/or fix the issue. But please, keep me informed!__
