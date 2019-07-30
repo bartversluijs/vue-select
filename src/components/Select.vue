@@ -534,6 +534,16 @@
     methods: {
 
       /**
+       * Focus
+       * @param  {Object|String} option
+       * @return {void}
+       */
+      focus() {
+        this.open = true;
+        this.searchEl.focus();
+      },
+
+      /**
        * Select a given option.
        * @param  {Object|String} option
        * @return {void}
