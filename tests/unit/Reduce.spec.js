@@ -159,7 +159,7 @@ describe("When reduce prop is defined", () => {
       }
     });
 
-    expect(Select.find(".vs__selected").text()).toContain("Canada");
+    expect(Select.findComponent(".vs__selected").text()).toContain("Canada");
   });
 
   it("can find the original option within this.options", () => {

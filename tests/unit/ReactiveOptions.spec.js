@@ -115,9 +115,9 @@ describe("Reset on options change", () => {
   it('clearSearchOnBlur returns false when multiple is true', () => {
     const Select = mountDefault({});
     let clearSearchOnBlur = jest.spyOn(Select.vm, 'clearSearchOnBlur');
-    Select.find({ref: 'search'}).trigger('click');
+    Select.findComponent({ref: 'search'}).trigger('click');
     Select.setData({search: 'one'});
-    Select.find({ref: 'search'}).trigger('blur');
+    Select.findComponent({ref: 'search'}).trigger('blur');
 
     expect(clearSearchOnBlur).toHaveBeenCalledTimes(1);
     expect(clearSearchOnBlur).toHaveBeenCalledWith({
@@ -131,9 +131,9 @@ describe("Reset on options change", () => {
     let clearSearchOnBlur = jest.fn(() => false);
     const Select = mountDefault({clearSearchOnBlur});
 
-    Select.find({ref: 'search'}).trigger('click');
+    Select.findComponent({ref: 'search'}).trigger('click');
     Select.setData({search: 'one'});
-    Select.find({ref: 'search'}).trigger('blur');
+    Select.findComponent({ref: 'search'}).trigger('blur');
 
     expect(clearSearchOnBlur).toHaveBeenCalledTimes(1);
     expect(Select.vm.search).toBe('one');

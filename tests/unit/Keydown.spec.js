@@ -8,7 +8,7 @@ describe('Custom Keydown Handlers', () => {
       mapKeydown: (defaults, vm) => ({ ...defaults, 32: onKeyDown }),
     });
 
-    Select.find({ ref: 'search' }).trigger('keydown.space');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.space');
 
     expect(onKeyDown.mock.calls.length).toBe(1);
   });
@@ -20,7 +20,7 @@ describe('Custom Keydown Handlers', () => {
 
     const spy = jest.spyOn(Select.vm, 'typeAheadSelect');
 
-    Select.find({ ref: 'search' }).trigger('keydown.space');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.space');
 
     expect(spy).toHaveBeenCalledTimes(1);
   });
@@ -34,10 +34,10 @@ describe('Custom Keydown Handlers', () => {
 
     const spy = jest.spyOn(Select.vm, 'typeAheadSelect');
 
-    Select.find({ ref: 'search' }).trigger('keydown.space');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.space');
     expect(onKeyDown.mock.calls.length).toBe(1);
 
-    Select.find({ ref: 'search' }).trigger('keydown.tab');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.tab');
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -47,12 +47,12 @@ describe('Custom Keydown Handlers', () => {
       const Select = mountDefault();
       const spy = jest.spyOn(Select.vm, 'typeAheadSelect');
 
-      Select.find({ ref: 'search' }).trigger('compositionstart');
-      Select.find({ ref: 'search' }).trigger('keydown.enter');
+      Select.findComponent({ ref: 'search' }).trigger('compositionstart');
+      Select.findComponent({ ref: 'search' }).trigger('keydown.enter');
       expect(spy).toHaveBeenCalledTimes(0);
 
-      Select.find({ ref: 'search' }).trigger('compositionend');
-      Select.find({ ref: 'search' }).trigger('keydown.enter');
+      Select.findComponent({ ref: 'search' }).trigger('compositionend');
+      Select.findComponent({ ref: 'search' }).trigger('keydown.enter');
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -60,8 +60,8 @@ describe('Custom Keydown Handlers', () => {
       const Select = mountDefault({ selectOnTab: true });
       const spy = jest.spyOn(Select.vm, 'typeAheadSelect');
 
-      Select.find({ ref: 'search' }).trigger('compositionstart');
-      Select.find({ ref: 'search' }).trigger('keydown.tab');
+      Select.findComponent({ ref: 'search' }).trigger('compositionstart');
+      Select.findComponent({ ref: 'search' }).trigger('keydown.tab');
       expect(spy).toHaveBeenCalledTimes(0);
 
       Select.find({ ref: 'search' }).trigger('compositionend');

@@ -43,7 +43,7 @@ describe("Toggling Dropdown", () => {
       options: [{ label: "one" }]
     });
 
-    const selectedTag = Select.find(".vs__selected").element;
+    const selectedTag = Select.findComponent(".vs__selected").element;
 
     Select.vm.toggleDropdown(clickEvent(selectedTag));
     expect(Select.vm.open).toEqual(true);
@@ -92,7 +92,7 @@ describe("Toggling Dropdown", () => {
     });
 
     Select.vm.open = true;
-    Select.find({ ref: "search" }).trigger("blur");
+    Select.findComponent({ ref: "search" }).trigger("blur");
 
     expect(Select.vm.open).toEqual(false);
   });
@@ -135,7 +135,7 @@ describe("Toggling Dropdown", () => {
     });
 
     Select.vm.search = "foo";
-    Select.find('.vs__search').trigger('keydown.esc')
+    Select.findComponent('.vs__search').trigger('keydown.esc')
     expect(Select.vm.search).toEqual("");
   });
 

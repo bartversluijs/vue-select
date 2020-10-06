@@ -9,7 +9,7 @@ describe("Labels", () => {
       label: "name",
       value: { name: "Foo" }
     });
-    expect(Select.find(".vs__selected").text()).toBe("Foo");
+    expect(Select.findComponent(".vs__selected").text()).toBe("Foo");
   });
 
   it("will console.warn when options contain objects without a valid label key", async () => {
@@ -75,7 +75,7 @@ describe("Labels", () => {
       Select.vm.select({name: 'one'});
 
       expect(spy).toHaveBeenCalledTimes(0);
-      expect(Select.find('.selected').exists()).toBeTruthy();
+      expect(Select.findComponent('.selected').exists()).toBeTruthy();
     });
   });
 });

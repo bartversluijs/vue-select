@@ -6,7 +6,7 @@ describe("Removing values", () => {
     Select.vm.$data._value = 'one';
     await Select.vm.$nextTick();
 
-    Select.find(".vs__deselect").trigger("click");
+    Select.findComponent(".vs__deselect").trigger("click");
     expect(Select.emitted().input).toEqual([[[]]]);
     expect(Select.vm.selectedValue).toEqual([]);
   });
@@ -19,7 +19,7 @@ describe("Removing values", () => {
       disabled: true
     });
 
-    Select.find(".vs__deselect").trigger("click");
+    Select.findComponent(".vs__deselect").trigger("click");
     expect(Select.vm.selectedValue).toEqual(["one"]);
   });
 
@@ -31,7 +31,7 @@ describe("Removing values", () => {
 
     Select.vm.$data._value = ["one", "two"];
 
-    Select.find('.vs__search').trigger('keydown.backspace')
+    Select.findComponent('.vs__search').trigger('keydown.backspace')
 
     expect(Select.emitted().input).toEqual([[['one']]]);
     expect(Select.vm.selectedValue).toEqual(["one"]);
@@ -51,11 +51,11 @@ describe("Removing values", () => {
   it('will not emit input event if value has not changed with backspace', () => {
     const Select = mountDefault();
     Select.vm.$data._value = 'one';
-    Select.find({ ref: 'search' }).trigger('keydown.backspace');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.backspace');
     expect(Select.emitted().input.length).toBe(1);
 
-    Select.find({ ref: 'search' }).trigger('keydown.backspace');
-    Select.find({ ref: 'search' }).trigger('keydown.backspace');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.backspace');
+    Select.findComponent({ ref: 'search' }).trigger('keydown.backspace');
     expect(Select.emitted().input.length).toBe(1);
   });
 
@@ -86,7 +86,7 @@ describe("Removing values", () => {
       Select.vm.$data._value = 'foo';
 
       expect(Select.vm.selectedValue).toEqual(["foo"]);
-      Select.find("button.vs__clear").trigger("click");
+      Select.findComponent("button.vs__clear").trigger("click");
 
       expect(Select.emitted().input).toEqual([[null]]);
       expect(Select.vm.selectedValue).toEqual([]);
@@ -99,7 +99,7 @@ describe("Removing values", () => {
         disabled: true
       });
 
-      expect(Select.find("button.vs__clear").attributes().disabled).toEqual(
+      expect(Select.findComponent("button.vs__clear").attributes().disabled).toEqual(
         "disabled"
       );
     });

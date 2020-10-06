@@ -10,7 +10,7 @@ describe('Scoped Slots', () => {
         },
       });
 
-    expect(Select.find({ref: 'selectedOptions'}).text()).toEqual('one');
+    expect(Select.findComponent({ref: 'selectedOptions'}).text()).toEqual('one');
   });
 
   describe('Slot: selected-option', () => {
@@ -23,7 +23,7 @@ describe('Scoped Slots', () => {
           },
         });
 
-      expect(Select.find('.vs__selected').text()).toEqual('one');
+      expect(Select.findComponent('.vs__selected').text()).toEqual('one');
     });
 
     it('opens the dropdown when clicking an option in selected-option slot',
