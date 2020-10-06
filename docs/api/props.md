@@ -1,3 +1,44 @@
+## autoscroll <Badge text="v3.10.0+" />
+
+When true, the dropdown will automatically scroll to ensure
+that the option highlighted is fully within the dropdown viewport
+when navigating with keyboard arrows.
+
+```js
+autoscroll: {
+  type: Boolean,
+  default: true
+}
+```
+
+## autocomplete
+
+The value provided here will be bound to the [autocomplete
+HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+on the search input. Defaults to `off`.
+
+```js
+autocomplete: {
+    type: String,
+    default: 'off'
+},
+```
+
+## appendToBody <Badge text="v3.7.0+" />
+
+Append the dropdown element to the end of the body
+and size/position it dynamically. Use it if you have
+overflow or z-index issues.
+
+See [Dropdown Position](../guide/positioning.md) for more details.
+
+```js
+appendToBody: {
+    type: Boolean,
+    default: false
+},
+```
+
 ## value
 
 Contains the currently selected value. Very similar to a
@@ -109,6 +150,34 @@ transition: {
 },
 ```
 
+## calculatePosition <Badge text="v3.7.0+" />
+
+When `appendToBody` is true, this function is responsible for positioning the drop down list.
+
+If a function is returned from `calculatePosition`, it will be called when the drop down list
+is removed from the DOM. This allows for any garbage collection you may need to do.
+
+See [Dropdown Position](../guide/positioning.md) for more details.
+
+```js
+calculatePosition: {
+    type: Function,
+    /**
+     * @param dropdownList {HTMLUListElement}
+     * @param component {Vue} current instance of vue select
+     * @param width {string} calculated width in pixels of the dropdown menu
+     * @param top {string} absolute position top value in pixels relative to the document
+     * @param left {string} absolute position left value in pixels relative to the document
+     * @return {function|void}
+     */
+    default(dropdownList, component, {width, top, left}) {
+      dropdownList.style.top = top;
+      dropdownList.style.left = left;
+      dropdownList.style.width = width;
+    }
+}
+```
+
 ## clearSearchOnSelect
 
 Enables/disables clearing the search text when an option is selected.
@@ -117,6 +186,19 @@ Enables/disables clearing the search text when an option is selected.
 clearSearchOnSelect: {
 	type: Boolean,
 	default: true
+},
+```
+
+## clearSearchOnBlur
+
+Enables/disables clearing the search text when the search input is blurred.
+
+```js
+clearSearchOnBlur: {
+    type: Function,
+    default: function ({ clearSearchOnSelect, multiple }) {
+      return clearSearchOnSelect && !multiple
+    }
 },
 ```
 
@@ -178,12 +260,44 @@ getOptionLabel: {
         return console.warn(
           `[vue-select warn]: Label key "option.${this.label}" does not` +
           ` exist in options object ${JSON.stringify(option)}.\n` +
-          'http://sagalbot.github.io/vue-select/#ex-labels'
+          'https://vue-select.org/api/props.html#getoptionlabel'
         )
       }
       return option[this.label]
     }
     return option;
+  }
+},
+```
+
+## getOptionKey
+
+Callback to get an option key. If `option`
+is an object and has an `id`, returns `option.id`
+by default, otherwise tries to serialize `option`
+to JSON.
+
+The key must be unique for an option.
+
+```js
+getOptionKey: {
+  type: Function,
+  default(option) {
+    if (typeof option === 'object' && option.id) {
+      return option.id
+    } else {
+      try {
+        return JSON.stringify(option)
+      } catch(e) {
+        return console.warn(
+          `[vue-select warn]: Could not stringify option ` +
+          `to generate unique key. Please provide 'getOptionKey' prop ` +
+          `to return a unique key for each option.\n` +
+          'https://vue-select.org/api/props.html#getoptionkey'
+        )
+        return null
+      }
+    }
   }
 },
 ```
@@ -307,12 +421,22 @@ createOption: {
 
 ## resetOnOptionsChange
 
-When false, updating the options will not reset the select value
+When false, updating the options will not reset the selected value.
+
+Since `v3.4+` the prop accepts either a `boolean` or `function` that returns a `boolean`.
+
+If defined as a function, it will receive the params listed below.
 
 ```js
+/**
+* @type {Boolean|Function}
+* @param {Array} newOptions
+* @param {Array} oldOptions
+* @param {Array} selectedValue
+*/
 resetOnOptionsChange: {
-	type: Boolean,
-	default: false
+    default: false,
+    validator: (value) => ['function', 'boolean'].includes(typeof value)
 },
 ```
 
@@ -357,3 +481,4 @@ selectOnTab: {
 	type: Boolean,
 	default: false
 }
+```

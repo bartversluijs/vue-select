@@ -230,11 +230,6 @@ export default {
           loading(false);
         });
     }, 250),
-    fuseSearch (options, search) {
-      return new Fuse(options, {
-        keys: ['title', 'author.firstName', 'author.lastName'],
-      }).search(search);
-    },
   },
 };
 </script>

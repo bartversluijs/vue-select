@@ -13,7 +13,24 @@ export const searchSubmit = (Wrapper, searchText = false) => {
   if (searchText) {
     Wrapper.vm.search = searchText;
   }
-  Wrapper.find({ ref: "search" }).trigger("keyup.enter")
+  Wrapper.find({ ref: "search" }).trigger("keydown.enter")
+};
+
+/**
+ * Focus the input, enter some search text, hit return.
+ * @param Wrapper {Wrapper<Vue>}
+ * @param searchText
+ * @return {Promise<void>}
+ */
+export const selectTag = async (Wrapper, searchText) => {
+  Wrapper.vm.$refs.search.focus();
+  await Wrapper.vm.$nextTick();
+
+  Wrapper.vm.search = searchText;
+  await Wrapper.vm.$nextTick();
+
+  Wrapper.find({ ref: "search" }).trigger("keydown.enter");
+  await Wrapper.vm.$nextTick();
 };
 
 /**
